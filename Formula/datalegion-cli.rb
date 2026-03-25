@@ -171,26 +171,24 @@ class DatalegionCli < Formula
 
   def install
     venv = virtualenv_create(libexec, "python3.13")
+    pip = libexec/"bin/pip"
+    pip_args = %w[--no-deps --no-build-isolation --ignore-installed --no-compile]
 
-    # Install build backends first (order matters)
-    %w[flit_core hatchling setuptools].each do |name|
+    # Install all resources (build backends + deps) without build isolation
+    # flit_core is self-bootstrapping so it must come first
+    # hatchling and setuptools need flit_core, then everything else needs them
+    %w[flit_core packaging pathspec pluggy trove-classifiers hatchling setuptools].each do |name|
       r = resources.find { |res| res.name == name }
       next unless r
-      r.stage { venv.pip_install Pathname.pwd }
+      r.stage { system pip, "install", *pip_args, "--prefix=#{libexec}", Pathname.pwd.to_s }
     end
 
-    # Install everything else without build isolation
     resources.each do |r|
-      next if %w[flit_core hatchling setuptools].include?(r.name)
-      r.stage do
-        system libexec/"bin/pip", "install", "--no-deps", "--no-build-isolation",
-     "--ignore-installed", "--no-compile", "--prefix=#{libexec}", Pathname.pwd.to_s
-      end
+      next if %w[flit_core packaging pathspec pluggy trove-classifiers hatchling setuptools].include?(r.name)
+      r.stage { system pip, "install", *pip_args, "--prefix=#{libexec}", Pathname.pwd.to_s }
     end
 
-    # Install the main package
-    system libexec/"bin/pip", "install", "--no-deps", "--no-build-isolation",
- "--ignore-installed", "--no-compile", "--prefix=#{libexec}", buildpath.to_s
+    system pip, "install", *pip_args, "--prefix=#{libexec}", buildpath.to_s
     bin.install_symlink Dir[libexec/"bin/datalegion-cli"]
   end
 
