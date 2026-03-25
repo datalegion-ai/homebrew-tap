@@ -139,6 +139,11 @@ class DatalegionCli < Formula
     sha256 "b8daa0b9e4eef54dd8cf7c86c03713f53241884e814f4e2f5fb342fe520f639b"
   end
 
+  resource "setuptools-scm" do
+    url "https://files.pythonhosted.org/packages/77/67/d68809cc1abb0df437f9d21fe1928c282fd13ef158671a7b60bfe2e65940/setuptools_scm-10.0.2.tar.gz"
+    sha256 "1da0f4d7e55b4599f0569637c08909a8e8a5f32989d3bae767375bf935d4d5a3"
+  end
+
   resource "shellingham" do
     url "https://files.pythonhosted.org/packages/58/15/8b3609fd3830ef7b27b655beb4b4e9c62313a4e8da8c676e142cc210d58e/shellingham-1.5.4.tar.gz"
     sha256 "8dbca0739d487e5bd35ab3ca4b36e11c4078f3a234bfce294b0a0291363404de"
@@ -169,18 +174,23 @@ class DatalegionCli < Formula
     sha256 "0cea48d173cc12fa28ecabc3b837ea3cf6f38c6d1136f85cbaaf598984861466"
   end
 
+  resource "vcs-versioning" do
+    url "https://files.pythonhosted.org/packages/72/4b/3a429205c14e8d342fef34fced00b53bdebcab01ced0db6f01c39d792a48/vcs_versioning-1.0.1.tar.gz"
+    sha256 "bd597fd2c79dc4ea0a59fc6a525793acb7d2ba06ee64b80750b97e92b6bcf691"
+  end
+
   def install
     venv = virtualenv_create(libexec, "python3.13")
 
     # Install build backends first (order matters for --no-build-isolation)
-    %w[flit_core packaging pathspec pluggy trove-classifiers hatchling setuptools].each do |name|
+    %w[flit_core packaging pathspec setuptools setuptools-scm pluggy trove-classifiers hatchling].each do |name|
       r = resources.find { |res| res.name == name }
       next unless r
       r.stage { venv.pip_install Pathname.pwd }
     end
 
     # Install all remaining runtime deps
-    skip = %w[flit_core packaging pathspec pluggy trove-classifiers hatchling setuptools]
+    skip = %w[flit_core packaging pathspec setuptools setuptools-scm pluggy trove-classifiers hatchling]
     resources.each do |r|
       next if skip.include?(r.name)
       r.stage { venv.pip_install Pathname.pwd }
