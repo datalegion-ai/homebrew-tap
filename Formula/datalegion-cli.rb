@@ -170,7 +170,28 @@ class DatalegionCli < Formula
   end
 
   def install
-    virtualenv_install_with_resources
+    venv = virtualenv_create(libexec, "python3.13")
+
+    # Install build backends first (order matters)
+    %w[flit_core hatchling setuptools].each do |name|
+      r = resources.find { |res| res.name == name }
+      next unless r
+      r.stage { venv.pip_install Pathname.pwd }
+    end
+
+    # Install everything else without build isolation
+    resources.each do |r|
+      next if %w[flit_core hatchling setuptools].include?(r.name)
+      r.stage do
+        system libexec/"bin/pip", "install", "--no-deps", "--no-build-isolation",
+     "--ignore-installed", "--no-compile", "--prefix=#{libexec}", Pathname.pwd.to_s
+      end
+    end
+
+    # Install the main package
+    system libexec/"bin/pip", "install", "--no-deps", "--no-build-isolation",
+ "--ignore-installed", "--no-compile", "--prefix=#{libexec}", buildpath.to_s
+    bin.install_symlink Dir[libexec/"bin/datalegion-cli"]
   end
 
   test do
