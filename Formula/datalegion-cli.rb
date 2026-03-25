@@ -172,30 +172,22 @@ class DatalegionCli < Formula
   def install
     venv = virtualenv_create(libexec, "python3.13")
 
-    # flit_core bootstraps itself — must use Homebrew's pip_install
-    r = resources.find { |res| res.name == "flit_core" }
-    r.stage { venv.pip_install Pathname.pwd } if r
-
-    # Install all deps without build isolation (into venv directly, no --prefix)
-    pip_args = %w[--no-deps --no-build-isolation --ignore-installed]
-
-    # Build backend deps first (needed by hatchling)
-    %w[packaging pathspec pluggy trove-classifiers hatchling setuptools].each do |name|
+    # Install build backends first (order matters for --no-build-isolation)
+    %w[flit_core packaging pathspec pluggy trove-classifiers hatchling setuptools].each do |name|
       r = resources.find { |res| res.name == name }
       next unless r
-      r.stage { system libexec/"bin/pip", "install", *pip_args, Pathname.pwd.to_s }
+      r.stage { venv.pip_install Pathname.pwd }
     end
 
-    # All remaining runtime deps
+    # Install all remaining runtime deps
     skip = %w[flit_core packaging pathspec pluggy trove-classifiers hatchling setuptools]
     resources.each do |r|
       next if skip.include?(r.name)
-      r.stage { system libexec/"bin/pip", "install", *pip_args, Pathname.pwd.to_s }
+      r.stage { venv.pip_install Pathname.pwd }
     end
 
-    # Main package + symlink
-    system libexec/"bin/pip", "install", *pip_args, buildpath.to_s
-    bin.install_symlink Dir[libexec/"bin/datalegion-cli"]
+    # Install main package and link binary
+    venv.pip_install_and_link buildpath
   end
 
   test do
