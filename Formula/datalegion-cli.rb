@@ -10,7 +10,9 @@ class DatalegionCli < Formula
   depends_on "python@3.13"
 
   def install
-    virtualenv_install_with_resources
+    virtualenv_create(libexec, "python3.13")
+    system libexec/"bin/pip", "install", *std_pip_args(prefix: libexec), "."
+    bin.install_symlink Dir[libexec/"bin/datalegion-cli"]
   end
 
   test do
