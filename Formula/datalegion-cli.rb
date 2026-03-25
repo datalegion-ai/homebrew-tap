@@ -11,7 +11,7 @@ class DatalegionCli < Formula
 
   def install
     virtualenv_create(libexec, "python3.13")
-    system libexec/"bin/pip", "install", *std_pip_args(prefix: libexec), "."
+    system libexec/"bin/pip", "install", ".", "--prefix=#{libexec}"
     bin.install_symlink Dir[libexec/"bin/datalegion-cli"]
   end
 
