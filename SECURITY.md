@@ -1,5 +1,11 @@
 # Security Policy
 
+## Supported Versions
+
+| Version | Supported |
+|---------|-----------|
+| Latest  | ✅        |
+
 ## Reporting a Vulnerability
 
 If you discover a security vulnerability, please report it responsibly by emailing **support@datalegion.ai**.
