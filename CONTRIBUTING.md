@@ -4,9 +4,7 @@ Thank you for your interest in the Data Legion CLI.
 
 ## Reporting Issues
 
-If you encounter a bug or have a feature request, please open an issue on the [CLI issue tracker](https://github.com/datalegion-ai/datalegion-cli/issues).
-
-For issues specific to the Homebrew formula (installation failures, dependency problems), please open an issue on [this repository](https://github.com/datalegion-ai/homebrew-tap/issues).
+If you encounter a bug or have a feature request, please [open an issue](https://github.com/datalegion-ai/homebrew-tap/issues) on this repository.
 
 ## Formula Contributions
 
