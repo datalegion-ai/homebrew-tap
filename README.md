@@ -42,6 +42,6 @@ brew uninstall datalegion-ai/tap/datalegion-cli
 
 ## More Info
 
-- [Documentation](https://www.datalegion.ai/docs)
+- [Documentation](https://www.datalegion.ai/docs/integrations/cli)
 - [CLI Repository](https://github.com/datalegion-ai/datalegion-cli)
 - [PyPI Package](https://pypi.org/project/datalegion-cli/)
