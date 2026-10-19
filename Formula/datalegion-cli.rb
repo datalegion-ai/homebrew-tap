@@ -10,7 +10,7 @@ class DatalegionCli < Formula
   def install
     venv = libexec/"venv"
     system Formula["python@3.15"].opt_bin/"python3.15", "-m", "venv", venv
-    system venv/"bin/pip", "install", "datalegion-cli==#{version}"
+    system venv/"bin/pip", "install", buildpath
     bin.install_symlink Dir[venv/"bin/datalegion-cli"]
   end
 
