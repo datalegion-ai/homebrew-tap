@@ -1,8 +1,8 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/datalegion-ai/datalegion-node/main/.github/logo-light.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/datalegion-ai/datalegion-node/main/.github/logo.svg">
-    <img alt="Data Legion" src="https://raw.githubusercontent.com/datalegion-ai/datalegion-node/main/.github/logo.svg" width="260">
+    <source media="(prefers-color-scheme: dark)" srcset="https://www.datalegion.ai/logo-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://www.datalegion.ai/logo-light.svg">
+    <img alt="Data Legion" src="https://www.datalegion.ai/logo-light.svg" width="260">
   </picture>
 </p>
 
@@ -38,7 +38,7 @@ brew uninstall datalegion-ai/tap/datalegion-cli
 
 | Formula | Description |
 |---------|-------------|
-| `datalegion-cli` | CLI for the Data Legion API — agent-friendly, fully async |
+| `datalegion-cli` | CLI for the Data Legion API: agent-friendly, fully async |
 
 ## More Info
 
