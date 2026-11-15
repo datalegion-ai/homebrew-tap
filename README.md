@@ -36,8 +36,8 @@ brew uninstall datalegion-ai/tap/datalegion-cli
 
 ## Available Formulae
 
-| Formula | Description |
-|---------|-------------|
+| Formula          | Description                                              |
+| ---------------- | -------------------------------------------------------- |
 | `datalegion-cli` | CLI for the Data Legion API: agent-friendly, fully async |
 
 ## More Info
