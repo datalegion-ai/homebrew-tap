@@ -1,8 +1,8 @@
 class DatalegionCli < Formula
   desc "CLI for the Data Legion API - agent-friendly, fully async"
   homepage "https://www.datalegion.ai"
-  url "https://files.pythonhosted.org/packages/21/98/01b08f48f1a4ad2aaf8e3f8c7a1d40e610dc0a9c1ea792c9f222cda919fa/datalegion_cli-1.10.1.tar.gz"
-  sha256 "3143994e5c2754fcea7252046ac608e26ccd3fcefb68a9f18d141f925b04e8ce"
+  url "https://files.pythonhosted.org/packages/d1/2f/d2af3f05a0146ec983e57b3d1b2ab25c0a3acf71f41412db4103f3d8e251/datalegion_cli-1.10.2.tar.gz"
+  sha256 "20a4d7f3fd65de90072ff8c3bb008613109222d008e035991a69c05276e5ab27"
   license "MIT"
 
   depends_on "python@3.15"
